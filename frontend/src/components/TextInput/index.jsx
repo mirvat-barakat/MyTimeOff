@@ -3,8 +3,8 @@ import './styles.css';
 
 const TextInput = ({ label, value, onChange }) => {
     return (
-      <div>
-        <label>{label}</label>
+      <div className='text-input'>
+        <label >{label}:</label>
         <input type="text" value={value} onChange={onChange} />
       </div>
     );
