@@ -26,6 +26,7 @@
 import React, { useState } from 'react';
 import TextInput from './components/TextInput';
 import Button from './components/Button';
+import LoginRegisterForm from './components/LoginRegisterForm';
 
 const App = () => {
   const [name, setName] = useState('');
@@ -35,10 +36,7 @@ const App = () => {
   };
 
   return (
-    <div>
-      <TextInput label="Name" value={name} onChange={handleNameChange} />
-      <Button label="Register"/>
-    </div>
+      <LoginRegisterForm/>
   );
 };
 
