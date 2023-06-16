@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextInput from '../TextInput';
 import Button from '../Button';
+import './styles.css';
 
 const LoginRegisterForm = () => {
   const [isLogin, setIsLogin] = useState(true);

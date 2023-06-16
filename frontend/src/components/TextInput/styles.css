@@ -13,6 +13,7 @@
     font-size: 14px;
     width: 100%;
     box-sizing: border-box;
+    margin-bottom: 8px;
   }
   
   .text-input label {
