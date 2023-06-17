@@ -14,12 +14,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f2f2f2;
-    width: 50%;
+    background-color: white;
+    width: 100%;
     padding: 20px;
     text-align: center;
   }
-  
+  .welcome{
+    display: flex;
+    flex-direction: column;
+    width:50%;
+  }
+  .welcome img{
+    width: 100%;
+    height:50%;
+  }
   .system-name {
     font-size: 36px;
     margin-bottom: 16px;
