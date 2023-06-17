@@ -1,0 +1,22 @@
+.main-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .system-name-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    width:50%;
+  }
+  
+  .system-name-container h1 {
+    font-size: 32px;
+  }
+  
+  .form-container {
+    width:50%;
+    align-self: center;
+    align-items: center;
+  }
