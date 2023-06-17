@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import LandingPage from './pages/LoginPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {
-  const [name, setName] = useState('');
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
   return (
-      <LandingPage/>
+          <Router>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />  
+            </Routes>
+          </Router>
   );
 };
 
