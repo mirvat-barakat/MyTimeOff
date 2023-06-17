@@ -1,12 +1,20 @@
+
 button{
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background: '#007bff';
-        color: '#fff';
-        font-size: 14px;
+        padding: 10px 15px;
+        border-radius: 20px;
+        background-color: #660066;
+        color: white;
+        transition: 0.2s ease-in-out;
         cursor: pointer;
-        margin-top: 10px;
-        width:90px;
+        font-weight: bold;
         text-align: center;
-}
+    }
+    
+    button:hover{
+        background-color: #220066;
+        translate: 0px -2px;
+    }
+    
+    button:focus{
+        background-color: #180047;
+    }
