@@ -1,0 +1,27 @@
+.vacation-form {
+    width:60%;
+    height:80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    margin-left: 20%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .vacation-form h2 {
+    margin-bottom: 8px;
+  }
+  .duration{
+    margin-bottom: 10px;
+    font-weight:700;
+  }
+  .duration-box{
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+  }

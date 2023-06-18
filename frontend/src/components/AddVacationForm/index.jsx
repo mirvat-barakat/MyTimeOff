@@ -27,7 +27,7 @@ const AddVacationForm = () => {
 
  return (
     <div>
-        <form className="form">
+        <form className="vacation-form">
           <h2>Add Vacation</h2>
           <TextInput
             label="Description"
@@ -46,9 +46,9 @@ const AddVacationForm = () => {
             type="date"
             onChange={(e) => setEndDate(e.target.value)}
           />
-          <div>
+          <div className='duration'>
             <label>Duration:</label>
-            <input type="text" value={duration} readOnly />
+            <input type="text" value={duration} className='duration-box' readOnly />
           </div>
           <Button type="submit" label="Add" />
         </form>
