@@ -4,6 +4,26 @@ import Button from '../Button';
 import './styles.css';
 
 const AddVacationForm = () => {
+    const [description, setDescription] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [duration, setDuration] = useState('');
+
+    useEffect(() => {
+      calculateDuration();
+    }, [startDate, endDate]);
+  
+    const calculateDuration = () => {
+      if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const diffTime = Math.abs(end - start);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        setDuration(diffDays + ' days');
+      } else {
+        setDuration('');
+      }
+    };
 
  return (
     <div>
@@ -26,6 +46,10 @@ const AddVacationForm = () => {
             type="date"
             onChange={(e) => setEndDate(e.target.value)}
           />
+          <div>
+            <label>Duration:</label>
+            <input type="text" value={duration} readOnly />
+          </div>
           <Button type="submit" label="Add" />
         </form>
     </div>
