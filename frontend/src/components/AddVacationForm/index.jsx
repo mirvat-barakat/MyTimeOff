@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextInput from '../TextInput';
 import Button from '../Button';
 import './styles.css';
@@ -27,7 +27,7 @@ const AddVacationForm = () => {
 
  return (
     <div>
-        <form onSubmit={handleRegisterSubmit} className="form">
+        <form className="form">
           <h2>Add Vacation</h2>
           <TextInput
             label="Description"
