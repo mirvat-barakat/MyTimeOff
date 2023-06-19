@@ -9,7 +9,9 @@ const App = () => {
           <Router>
             <Routes>
               <Route path="/" element={<LandingPage />} /> 
-              <Route path="/home" element={<HomePage />} /> 
+              <Route element={<PrivateRoutes />}>
+                <Route path="/home" element={<HomePage />} /> 
+              </Route>
             </Routes>
           </Router>
   );
