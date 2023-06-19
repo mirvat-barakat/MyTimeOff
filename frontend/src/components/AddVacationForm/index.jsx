@@ -28,13 +28,13 @@ const AddVacationForm = (props) => {
     <div>
       <form className="vacation-form">
         <h2>Add Vacation</h2>
+        <div className='info'>
         <TextInput
           label="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <div className='dates'>
-          <TextInput
+        <TextInput
           type='date'
           label="Start Date"
           value={startDate}
@@ -47,12 +47,17 @@ const AddVacationForm = (props) => {
           onChange={setEndDate}
         />
         </div>
+
         <div className='duration'>
+          
           <label>Duration:</label>
           <input type="text" value={duration} className='duration-box' readOnly />
         </div>
-        <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
-        <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={onConfirm}/>
+        <div className="confirmation-dialog-buttons">
+            <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
+            <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={onConfirm}/>
+        </div>
+        
       </form>
     </div>
   );
