@@ -3,11 +3,12 @@ import TextInput from '../TextInput';
 import Button from '../Button';
 import './styles.css';
 
-const AddVacationForm = () => {
+const AddVacationForm = (props) => {
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [duration, setDuration] = useState('');
+  const {onCancel, onConfirm } = props;
 
   const calculateDuration = () => {
     if (startDate && endDate) {
@@ -50,7 +51,8 @@ const AddVacationForm = () => {
           <label>Duration:</label>
           <input type="text" value={duration} className='duration-box' readOnly />
         </div>
-        <Button type="submit" label="Add" />
+        <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
+        <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={onConfirm}/>
       </form>
     </div>
   );
