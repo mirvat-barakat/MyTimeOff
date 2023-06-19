@@ -2,6 +2,7 @@ import React  from 'react';
 import LandingPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PrivateRoutes from './privateRoutes';
 
 const App = () => {
 
