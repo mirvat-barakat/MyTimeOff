@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\backend.csproj": {}
+    "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\MyTimeOff.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\backend.csproj": {
+    "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\MyTimeOff.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\backend.csproj",
-        "projectName": "backend",
-        "projectPath": "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\MyTimeOff.API.csproj",
+        "projectName": "MyTimeOff.API",
+        "projectPath": "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\MyTimeOff.API.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\DELL\\OneDrive\\Desktop\\MyTimeOff\\backend\\obj\\",
         "projectStyle": "PackageReference",
@@ -42,19 +42,51 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
-              "version": "[7.0.7, )"
+              "version": "[11.0.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[6.1.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.7, )"
+              "version": "[6.1.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.7, )"
+              "version": "[6.1.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Serilog.Expressions": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Serilog.Sinks.Seq": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.0, )"
             }
           },
           "imports": [

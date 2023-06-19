@@ -1,7 +1,3 @@
-using System;
-
-namespace backend.Models
-{
     public class Vacation
     {
         public int VacationId { get; set; }
@@ -9,5 +5,5 @@ namespace backend.Models
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public Employee Employee { get; set; }
     }
-}

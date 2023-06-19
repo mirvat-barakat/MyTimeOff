@@ -1,7 +1,3 @@
-using System;
-
-namespace backend.Models
-{
     public class Employee
     {
         public int EmployeeId { get; set; }
@@ -11,4 +7,3 @@ namespace backend.Models
 
         public ICollection<Vacation>? Vacations { get; set; }
     }
-}
