@@ -10,7 +10,23 @@ const HomePage = () => {
     useEffect(() => {
       $(tableRef.current).DataTable();
     }, []);
-
+  
+    const vacations = [
+      {
+        id: 1,
+        description: 'Vacation 1',
+        startDate: '2023-06-20',
+        endDate: '2023-06-25',
+        duration: 6,
+      },
+      {
+        id: 2,
+        description: 'Vacation 2',
+        startDate: '2023-07-10',
+        endDate: '2023-07-15',
+        duration: 6,
+      },
+    ];
   return (
     <div>
     <h2>My Vacations</h2>
