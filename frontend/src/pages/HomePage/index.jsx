@@ -3,13 +3,13 @@ import Button from '../../components/Button';
 import Confirmation from '../../components/ConfirmationDialog';
 import { useNavigate } from "react-router-dom";
 import $ from 'jquery';
-import 'datatables.net/js/jquery.dataTables';
 import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 import './styles.css';
 
 const HomePage = () => {
     const tableRef = useRef(null);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+    const [showForm, setShowForm] = useState(false);
     const navigate = useNavigate();
     
     function handleLogoutClick(){
@@ -25,6 +25,10 @@ const HomePage = () => {
       localStorage.clear();
       navigate("/");
   }
+
+  function handleAddVacation(){
+    setShowForm(true);
+}
 
     useEffect(() => {
       $(tableRef.current).DataTable();
@@ -70,10 +74,16 @@ const HomePage = () => {
             ))}
         </tbody>
         </table>
+        <div className='add-vacation-button'>
+          <Button type="submit" label="Add a Vacation" onClick={handleAddVacation} />
+        </div>
       </div>
+      <>
       <div className='logout'>
         <Button type="submit" label="Logout" onClick={handleLogoutClick} />
       </div>
+      </>
+      
       {showLogoutDialog && (
                 <div className="add-form-backdrop">
                             <Confirmation

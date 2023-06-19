@@ -42,10 +42,8 @@ const LoginRegisterForm = () => {
           />
           <Button type="submit" label="Login" />
           <p>
-            Don't have an account?{' '}
-            <button type="button" onClick={handleFormSwitch}>
-              Register
-            </button>
+            Don't have an account?{''}
+            <a className='link' onClick={handleFormSwitch}>Register</a>
           </p>
         </form>
       ) : (
@@ -68,10 +66,8 @@ const LoginRegisterForm = () => {
           />
           <Button type="submit" label="Register" />
           <p>
-            Already have an account?{' '}
-            <button type="button" onClick={handleFormSwitch}>
-              Login
-            </button>
+            Already have an account?{''}
+            <a className='link' onClick={handleFormSwitch}>Login</a>
           </p>
         </form>
       )}

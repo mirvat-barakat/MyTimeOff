@@ -13,3 +13,10 @@
   .form h2 {
     margin-bottom: 8px;
   }
+  .link{
+    color:#660066;
+    cursor: pointer;
+    font-weight:700;
+    margin-left: 5px;
+    text-decoration: underline;
+  }

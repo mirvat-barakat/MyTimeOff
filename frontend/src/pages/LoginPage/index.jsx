@@ -1,7 +1,6 @@
 import React from 'react';
 import './styles.css';
 import LoginRegisterForm from '../../components/LoginRegisterForm';
-import AddVacationForm from '../../components/AddVacationForm';
 
 const LandingPage = () => {
   return (
@@ -15,7 +14,7 @@ const LandingPage = () => {
       <img src={"vacation.jpg"} alt="Vacation" className='img'/>
       </div>
       <div className="form-container">
-        <AddVacationForm />
+        <LoginRegisterForm />
       </div>
     </div>
   );
