@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button';
 import './styles.css';
 
 const Confirmation = (props) => {
@@ -9,8 +10,8 @@ const Confirmation = (props) => {
         <div className="confirmation-dialog">
             <div className="confirmation-dialog-message">{message}</div>
             <div className="confirmation-dialog-buttons">
-                <button className="confirmation-dialog-button  cancel"  onClick={onCancel}>Cancel</button>
-                <button className="confirmation-dialog-button  confirm"  onClick={onConfirm}>Confirm</button>
+                <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
+                <Button type="submit" label=" Confirm" className="confirmation-dialog-button  confirm" onClick={onConfirm}/>
             </div>
         </div>
     );
