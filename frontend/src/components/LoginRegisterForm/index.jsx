@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TextInput from '../TextInput';
 import Button from '../Button';
 import './styles.css';
+import axios from 'axios';
 
 const LoginRegisterForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -21,8 +22,31 @@ const LoginRegisterForm = () => {
     event.preventDefault();
   };
 
-  const handleRegisterSubmit = (event) => {
-    event.preventDefault();
+  const handleRegisterSubmit = async(event) => {
+    const data = JSON.stringify({
+      "Name": registerName,
+      "Email": registerEmail,
+      "Password": registerPassword
+     });
+
+  const config = {
+    method: "Post",
+    data:data,
+    url: 'http://localhost:5162/api/authentication/register',
+    headers: {
+      'content-type': 'application/json',
+      'Accept': 'application/json',
+    },
+  };
+  try {
+    const res = await axios(config);
+    if (res.data.status == "success") {
+      localStorage.setItem('employee_id', JSON.stringify(res.data.employee._id));
+         setIsLogin(true);
+    }
+  } catch (error) {
+    return error.response;
+  }
   };
 
   return (
