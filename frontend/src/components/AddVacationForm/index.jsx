@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TextInput from '../TextInput';
 import Button from '../Button';
+import axios from 'axios';
 import './styles.css';
 
 const AddVacationForm = (props) => {
@@ -9,6 +10,36 @@ const AddVacationForm = (props) => {
   const [endDate, setEndDate] = useState(null);
   const [duration, setDuration] = useState('');
   const {onCancel, onConfirm } = props;
+
+  const handleAddVacation = async() => {
+
+    const data = {
+      "Description": description,
+      "StartDate": startDate,
+      "EndDate": endDate,
+      "Duration": duration,
+    }
+    const config = {
+      method: "Post",
+      data:data,
+      url: `http://localhost:5162/api/authentication/addvacation`,
+      headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`,
+
+      },
+    };
+    try {
+      const res = await axios(config);
+      if (res.data.status == "success") {
+        console.log("success");
+      }
+    } catch (error) {
+      return error.response;
+    }
+
+  }
 
   const calculateDuration = () => {
     if (startDate && endDate) {
