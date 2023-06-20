@@ -83,6 +83,12 @@ namespace backend1.Controllers
 
         private string GenerateJwtToken(Employee user)
         {
+
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+    
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -101,7 +107,6 @@ namespace backend1.Controllers
         }
     }
 }
-
 // Login request model
 public class LoginRequestModel
 {
