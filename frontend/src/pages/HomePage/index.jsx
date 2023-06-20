@@ -12,7 +12,34 @@ const HomePage = () => {
     const tableRef = useRef(null);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
     const [showForm, setShowForm] = useState(false);
+    const [vacations, setVacations] = useState('');
     const navigate = useNavigate();
+
+    const handleGetEmployeeVacations = async() => {
+      const user_id= localStorage.getItem("user_id");
+      const id = user_id.replace(/"/g, "");
+
+      const config = {
+        method: "GET",
+        url: `http://localhost:5162/api/authentication/getemployeevacations`,
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'bearer ' + token
+
+        },
+      };
+      try {
+        const res = await axios(config);
+        if (res.data.status == "success") {
+          setVacations(res.data.vacations);
+          
+        }
+      } catch (error) {
+        return error.response;
+      }
+  
+    }
     
     function handleLogoutClick(){
         setShowLogoutDialog(true);
@@ -36,23 +63,7 @@ const HomePage = () => {
     useEffect(() => {
       $(tableRef.current).DataTable();
     }, []);
-  
-    const vacations = [
-      {
-        id: 1,
-        description: 'Vacation 1',
-        startDate: '2023-06-20',
-        endDate: '2023-06-25',
-        duration: 6,
-      },
-      {
-        id: 2,
-        description: 'Vacation 2',
-        startDate: '2023-07-10',
-        endDate: '2023-07-15',
-        duration: 6,
-      },
-    ];
+    
   return (
     <div className='main'>
         <div className='table'>
@@ -87,7 +98,7 @@ const HomePage = () => {
       {showForm && (
                 <div className="add-form-backdrop">
                 <AddVacationForm onCancel={handleCancel}
-                            onConfirm={handleLogout}/></div>)}
+                            onConfirm={handleGetEmployeeVacations}/></div>)}
       
       {showLogoutDialog && (
                 <div className="add-form-backdrop">
