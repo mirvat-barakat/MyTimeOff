@@ -30,7 +30,7 @@ namespace backend1.Controllers
         {
             // Find the user by email
             var user = await _dbContext.Employees.FirstOrDefaultAsync(e => e.Email == model.Email);
-            if (user == null || !VerifyPasswordHash(model.Password, user.PasswordHash, user.PasswordSalt))
+            if (user == null)
             {
                 // Invalid email or password
                 return Unauthorized();
@@ -63,11 +63,9 @@ namespace backend1.Controllers
             var user = new Employee
             {
                 Name = model.Name,
-                Email = model.Email
+                Email = model.Email,
+                Password = model.Password
             };
-            CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
 
             // Add user to database
             _dbContext.Employees.Add(user);
@@ -81,26 +79,6 @@ namespace backend1.Controllers
             };
 
             return CreatedAtAction(nameof(Login), response);
-        }
-
-        // Helper methods for password hashing
-
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return computedHash.SequenceEqual(storedHash);
-            }
         }
 
         private string GenerateJwtToken(Employee user)
@@ -124,3 +102,17 @@ namespace backend1.Controllers
     }
 }
 
+// Login request model
+public class LoginRequestModel
+{
+    public string Email { get; set; }
+    public string Password { get; set; }
+}
+
+// Register request model
+public class RegisterRequestModel
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+}
