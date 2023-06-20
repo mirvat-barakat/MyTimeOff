@@ -18,8 +18,31 @@ const LoginRegisterForm = () => {
     setIsLogin(!isLogin);
   };
 
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = async(event) => {
     event.preventDefault();
+    const data = JSON.stringify({
+      "Email": loginEmail,
+      "Password": loginPassword
+     });
+    const config = {
+      method: "POST",
+      data:data,
+      url: 'http://localhost:5162/api/authentication/login',
+      headers: {
+        'content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    };
+    console.log(data);
+    try {
+      const res = await axios(config);
+      if (res.data.status == "success") {
+         localStorage.setItem("token", res.data.token);
+         localStorage.setItem("employee_id", res.data.employee.id);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleRegisterSubmit = async(event) => {
