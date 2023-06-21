@@ -32,7 +32,15 @@ namespace backend1.Controllers
                 .Where(v => v.EmployeeId == employeeId)
                 .ToListAsync();
 
-            return Ok(vacations);
+            
+
+             var response = new
+            {
+                status = "success",
+                vacations = vacations
+            };
+
+            return Ok( response);
         }
 
         // API to add a new vacation
