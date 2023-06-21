@@ -16,6 +16,7 @@ const HomePage = () => {
     const [showForm, setShowForm] = useState(false);
     const [vacations, setVacations] = useState([]);
     const token = localStorage.getItem("token");
+    const v_id= localStorage.getItem("v_id");
     const navigate = useNavigate();
 
     const handleGetEmployeeVacations = async() => {
@@ -75,8 +76,24 @@ const HomePage = () => {
     // Handle update operation for the given vacationId
   }
 
-  function handleDeleteVacation(vacationId) {
-    // Handle delete operation for the given vacationId
+  const handleDeleteVacation = async() => {
+
+    const config = {
+      method: "Delete",
+      url: `http://localhost:5162/api/vacation/${v_id}`,
+      headers: {
+        'content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    };
+    try {
+      const res = await axios(config);
+      if (res.data.status == "success") {
+        setDeleteDialog(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
@@ -125,7 +142,8 @@ const HomePage = () => {
                   {new Date(vacation.endDate) >= new Date() && (
                     <>
                     <a className='link' onClick={() => handleUpdateVacation(vacation.id)}>Update</a>
-                    <a className='link' onClick={handDeleteClick}>Delete</a>
+                    <a className='link' onClick={() => { localStorage.setItem('v_id', JSON.stringify(vacation.id));
+                                                          handDeleteClick() }}>Delete</a>
                     </>
                   )}
                 </td>
