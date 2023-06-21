@@ -23,7 +23,7 @@
   .welcome{
     display: flex;
     flex-direction: column;
-    width:50%;
+    width:60%;
   }
   .welcome img{
     width: 100%;
