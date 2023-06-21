@@ -16,12 +16,12 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     const handleGetEmployeeVacations = async() => {
-      const user_id= localStorage.getItem("user_id");
+      const user_id= localStorage.getItem("employee_id");
       const id = user_id.replace(/"/g, "");
 
       const config = {
         method: "GET",
-        url: `http://localhost:5162/api/authentication/getemployeevacations`,
+        url: `http://localhost:5162/api/vacation/employee/${id}`,
         headers: {
           'content-type': 'application/json',
           'Accept': 'application/json',
