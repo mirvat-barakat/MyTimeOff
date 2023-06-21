@@ -7,12 +7,14 @@ import $ from 'jquery';
 import 'datatables.net/js/jquery.dataTables';
 import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 import './styles.css';
+import axios from 'axios';
 
 const HomePage = () => {
     const tableRef = useRef(null);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    const [vacations, setVacations] = useState('');
+    const [vacations, setVacations] = useState([]);
+    const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
     const handleGetEmployeeVacations = async() => {
@@ -40,6 +42,11 @@ const HomePage = () => {
       }
   
     }
+
+    useEffect(() => {
+      handleGetEmployeeVacations();
+    }, []);
+    
     
     function handleLogoutClick(){
         setShowLogoutDialog(true);
@@ -78,12 +85,12 @@ const HomePage = () => {
             </tr>
         </thead>
         <tbody>
-            {vacations.map((vacation) => (
+            {vacations.map(vacation => (
             <tr key={vacation.id}>
                 <td>{vacation.description}</td>
                 <td>{vacation.startDate}</td>
                 <td>{vacation.endDate}</td>
-                <td>{vacation.duration} days</td>
+                <td>{vacation.duration}</td>
             </tr>
             ))}
         </tbody>
@@ -98,7 +105,7 @@ const HomePage = () => {
       {showForm && (
                 <div className="add-form-backdrop">
                 <AddVacationForm onCancel={handleCancel}
-                            onConfirm={handleGetEmployeeVacations}/></div>)}
+                            onConfirm={handleAddVacation}/></div>)}
       
       {showLogoutDialog && (
                 <div className="add-form-backdrop">
