@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400');
 .table{
     width:80%;
     padding-left: 10px;
     padding-right: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+
 }
 .main{
     display:flex;
@@ -14,4 +22,29 @@
 }
 .logout{
     margin-top: 20px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-color: #ddd;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

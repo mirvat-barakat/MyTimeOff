@@ -68,6 +68,27 @@ const HomePage = () => {
         startDate: "2024-03-15",
         endDate: "2023-03-22",
         duration: "7 days"
+      },
+      {
+        id: 4,
+        description: "Summer Vacation",
+        startDate: "2023-07-01",
+        endDate: "2023-07-15",
+        duration: "15 days"
+      },
+      {
+        id: 5,
+        description: "Winter Holiday",
+        startDate: "2023-12-20",
+        endDate: "2024-01-02",
+        duration: "14 days"
+      },
+      {
+        id: 6,
+        description: "Spring Break",
+        startDate: "2024-03-15",
+        endDate: "2023-03-22",
+        duration: "7 days"
       }
     ];
     
@@ -98,15 +119,31 @@ const HomePage = () => {
     // Handle delete operation for the given vacationId
   }
 
-    useEffect(() => {
-      $(tableRef.current).DataTable();
-    }, []);
+  useEffect(() => {
+    let dataTable = null;
+  
+    if (tableRef.current && vacations.length > 0) {
+      if (!$.fn.DataTable.isDataTable(tableRef.current)) {
+        dataTable = $(tableRef.current).DataTable({
+          paging: true,
+          searching: false,
+          lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+        });
+      }
+    }
+  
+    return () => {
+      if (dataTable !== null) {
+        dataTable.destroy();
+      }
+    };
+  }, [vacations]);
     
   return (
     <div className='main'>
         <div className='table'>
         <h2>My Vacations</h2>
-        <table ref={tableRef} className="table">
+        <table ref={tableRef} className="table table-striped table-bordered">
         <thead>
             <tr>
             <th>Description</th>
@@ -123,12 +160,14 @@ const HomePage = () => {
                 <td>{vacation.startDate}</td>
                 <td>{vacation.endDate}</td>
                 <td>{vacation.duration}</td>
-                {new Date(vacation.endDate) >= new Date() && (
                 <td>
-                  <button onClick={() => handleUpdateVacation(vacation.id)}>Update</button>
-                  <button onClick={() => handleDeleteVacation(vacation.id)}>Delete</button>
+                  {new Date(vacation.endDate) >= new Date() && (
+                    <>
+                    <a className='link' onClick={() => handleUpdateVacation(vacation.id)}>Update</a>
+                    <a className='link' onClick={() => handleDeleteVacation(vacation.id)}>Delete</a>
+                    </>
+                  )}
                 </td>
-      )}
             </tr>
             ))}
         </tbody>
