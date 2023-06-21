@@ -44,10 +44,10 @@ namespace backend1.Controllers
         }
 
         // API to add a new vacation
-        [HttpPost]
-        public async Task<IActionResult> AddVacation([FromBody] AddVacationRequestModel model)
+        [HttpPost("{employeeId}")]
+        public async Task<IActionResult> AddVacation(int employeeId, [FromBody] AddVacationRequestModel model)
         {
-            var employee = await _dbContext.Employees.FindAsync(model.EmployeeId);
+            var employee = await _dbContext.Employees.FindAsync(employeeId);
             if (employee == null)
             {
                 return NotFound("Employee not found");
@@ -62,9 +62,9 @@ namespace backend1.Controllers
                 Employee = employee
             };
 
-            employee.Vacations.Add(vacation);
+            _dbContext.Vacations.Add(vacation);
 
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChangesAsync();
 
             var response = new
             {
