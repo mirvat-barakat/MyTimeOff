@@ -14,84 +14,39 @@ const HomePage = () => {
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
     const [showDeleteDialog, setDeleteDialog] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    // const [vacations, setVacations] = useState([]);
+    const [vacations, setVacations] = useState([]);
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
-    // const handleGetEmployeeVacations = async() => {
-    //   const user_id= localStorage.getItem("employee_id");
-    //   const id = user_id.replace(/"/g, "");
+    const handleGetEmployeeVacations = async() => {
+      const user_id= localStorage.getItem("employee_id");
+      const id = user_id.replace(/"/g, "");
 
-    //   const config = {
-    //     method: "GET",
-    //     url: `http://localhost:5162/api/vacation/employee/${id}`,
-    //     headers: {
-    //       'content-type': 'application/json',
-    //       'Accept': 'application/json',
-    //       'Authorization': 'bearer ' + token
+      const config = {
+        method: "GET",
+        url: `http://localhost:5162/api/vacation/employee/${id}`,
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'bearer ' + token
 
-    //     },
-    //   };
-    //   try {
-    //     const res = await axios(config);
-    //     if (res.data.status == "success") {
-    //       setVacations(res.data.vacations);
+        },
+      };
+      try {
+        const res = await axios(config);
+        if (res.data.status == "success") {
+          setVacations(res.data.vacations);
           
-    //     }
-    //   } catch (error) {
-    //     return error.response;
-    //   }
-  
-    // }
-
-    // useEffect(() => {
-    //   handleGetEmployeeVacations();
-    // }, []);
-
-    const vacations = [
-      {
-        id: 1,
-        description: "Summer Vacation",
-        startDate: "2023-07-01",
-        endDate: "2023-07-15",
-        duration: "15 days"
-      },
-      {
-        id: 2,
-        description: "Winter Holiday",
-        startDate: "2023-12-20",
-        endDate: "2024-01-02",
-        duration: "14 days"
-      },
-      {
-        id: 3,
-        description: "Spring Break",
-        startDate: "2024-03-15",
-        endDate: "2023-03-22",
-        duration: "7 days"
-      },
-      {
-        id: 4,
-        description: "Summer Vacation",
-        startDate: "2023-07-01",
-        endDate: "2023-07-15",
-        duration: "15 days"
-      },
-      {
-        id: 5,
-        description: "Winter Holiday",
-        startDate: "2023-12-20",
-        endDate: "2024-01-02",
-        duration: "14 days"
-      },
-      {
-        id: 6,
-        description: "Spring Break",
-        startDate: "2024-03-15",
-        endDate: "2023-03-22",
-        duration: "7 days"
+        }
+      } catch (error) {
+        return error.response;
       }
-    ];
+  
+    }
+
+    useEffect(() => {
+      handleGetEmployeeVacations();
+    }, []);
     
     
     function handleLogoutClick(){
