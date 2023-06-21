@@ -13,39 +13,63 @@ const HomePage = () => {
     const tableRef = useRef(null);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    const [vacations, setVacations] = useState([]);
+    // const [vacations, setVacations] = useState([]);
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
-    const handleGetEmployeeVacations = async() => {
-      const user_id= localStorage.getItem("employee_id");
-      const id = user_id.replace(/"/g, "");
+    // const handleGetEmployeeVacations = async() => {
+    //   const user_id= localStorage.getItem("employee_id");
+    //   const id = user_id.replace(/"/g, "");
 
-      const config = {
-        method: "GET",
-        url: `http://localhost:5162/api/vacation/employee/${id}`,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'bearer ' + token
+    //   const config = {
+    //     method: "GET",
+    //     url: `http://localhost:5162/api/vacation/employee/${id}`,
+    //     headers: {
+    //       'content-type': 'application/json',
+    //       'Accept': 'application/json',
+    //       'Authorization': 'bearer ' + token
 
-        },
-      };
-      try {
-        const res = await axios(config);
-        if (res.data.status == "success") {
-          setVacations(res.data.vacations);
+    //     },
+    //   };
+    //   try {
+    //     const res = await axios(config);
+    //     if (res.data.status == "success") {
+    //       setVacations(res.data.vacations);
           
-        }
-      } catch (error) {
-        return error.response;
-      }
+    //     }
+    //   } catch (error) {
+    //     return error.response;
+    //   }
   
-    }
+    // }
 
-    useEffect(() => {
-      handleGetEmployeeVacations();
-    }, []);
+    // useEffect(() => {
+    //   handleGetEmployeeVacations();
+    // }, []);
+
+    const vacations = [
+      {
+        id: 1,
+        description: "Summer Vacation",
+        startDate: "2023-07-01",
+        endDate: "2023-07-15",
+        duration: "15 days"
+      },
+      {
+        id: 2,
+        description: "Winter Holiday",
+        startDate: "2023-12-20",
+        endDate: "2024-01-02",
+        duration: "14 days"
+      },
+      {
+        id: 3,
+        description: "Spring Break",
+        startDate: "2024-03-15",
+        endDate: "2023-03-22",
+        duration: "7 days"
+      }
+    ];
     
     
     function handleLogoutClick(){
@@ -65,7 +89,14 @@ const HomePage = () => {
 
   function handleAddVacation(){
     setShowForm(true);
-}
+  }
+  function handleUpdateVacation(vacationId) {
+    // Handle update operation for the given vacationId
+  }
+
+  function handleDeleteVacation(vacationId) {
+    // Handle delete operation for the given vacationId
+  }
 
     useEffect(() => {
       $(tableRef.current).DataTable();
@@ -82,6 +113,7 @@ const HomePage = () => {
             <th>Start Date</th>
             <th>End Date</th>
             <th>Duration</th>
+            <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -91,6 +123,12 @@ const HomePage = () => {
                 <td>{vacation.startDate}</td>
                 <td>{vacation.endDate}</td>
                 <td>{vacation.duration}</td>
+                {new Date(vacation.endDate) >= new Date() && (
+                <td>
+                  <button onClick={() => handleUpdateVacation(vacation.id)}>Update</button>
+                  <button onClick={() => handleDeleteVacation(vacation.id)}>Delete</button>
+                </td>
+      )}
             </tr>
             ))}
         </tbody>
