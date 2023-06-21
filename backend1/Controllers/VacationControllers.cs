@@ -79,6 +79,27 @@ namespace backend1.Controllers
 
             return Ok( response);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteVacation(int id)
+        {
+            var vacation = _dbContext.Vacations.FirstOrDefault(v => v.Id == id);
+
+            if (vacation == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.Vacations.Remove(vacation);
+            _dbContext.SaveChanges();
+
+            var response = new
+            {
+                status = "success",
+            };
+
+            return Ok( response);
+        }
     }
 }
 
