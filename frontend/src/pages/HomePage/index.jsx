@@ -145,7 +145,8 @@ const HomePage = () => {
   }, [vacations]);
     
   return (
-    <div className='main'>
+    <>
+        <div className='main'>
         <div className='table'>
         <h2>My Vacations</h2>
         <table ref={tableRef} className="table table-striped table-bordered">
@@ -203,6 +204,8 @@ const HomePage = () => {
                             onConfirm={handleLogout}
                             /></div>)}
   </div>
+    </>
+
 
   );
 };
