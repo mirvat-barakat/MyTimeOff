@@ -25,7 +25,7 @@
 .confirmation-dialog-buttons {
     display: flex;
     justify-content: center;
-    gap:10%;
+    gap:5%;
   }
 .confirmation-dialog-button {
     padding: 10px 20px;

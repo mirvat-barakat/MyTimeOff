@@ -10,6 +10,7 @@ const AddVacationForm = (props) => {
   const [endDate, setEndDate] = useState(null);
   const [duration, setDuration] = useState('');
   const {onCancel, onConfirm } = props;
+  const token = localStorage.getItem("token");
 
   const handleAddVacation = async() => {
 
@@ -59,34 +60,34 @@ const AddVacationForm = (props) => {
     <div>
       <form className="vacation-form">
         <h2>Add Vacation</h2>
-        <div className='info'>
-        <TextInput
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <TextInput
-          type='date'
-          label="Start Date"
-          value={startDate}
-          onChange={setStartDate}
-        />
-        <TextInput
-          type='date'
-          label="End Date"
-          value={endDate}
-          onChange={setEndDate}
-        />
-        </div>
-
-        <div className='duration'>
-          
-          <label>Duration:</label>
-          <input type="text" value={duration} className='duration-box' readOnly />
-        </div>
-        <div className="confirmation-dialog-buttons">
-            <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
-            <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={onConfirm}/>
+          <div className='info'>
+          <TextInput
+            label="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <TextInput
+            type='date'
+            label="Start Date"
+            value={startDate}
+            onChange={setStartDate}
+          />
+          <TextInput
+            type='date'
+            label="End Date"
+            value={endDate}
+            onChange={setEndDate}
+          />
+          <TextInput
+            label="Duration"
+            value={duration}
+            onChange={setDuration}
+            readonly
+          />
+          <div className="confirmation-dialog-buttons">
+              <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
+              <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={onConfirm}/>
+          </div>
         </div>
         
       </form>
