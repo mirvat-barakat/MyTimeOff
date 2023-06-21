@@ -3,6 +3,7 @@ import TextInput from '../TextInput';
 import Button from '../Button';
 import './styles.css';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const LoginRegisterForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +14,7 @@ const LoginRegisterForm = () => {
   const [registerName, setRegisterName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleFormSwitch = () => {
     setIsLogin(!isLogin);
@@ -25,7 +27,7 @@ const LoginRegisterForm = () => {
       "Password": loginPassword
      });
     const config = {
-      method: "POST",
+      method: "Post",
       data:data,
       url: 'http://localhost:5162/api/authentication/login',
       headers: {
@@ -39,6 +41,7 @@ const LoginRegisterForm = () => {
       if (res.data.status == "success") {
          localStorage.setItem("token", res.data.token);
          localStorage.setItem("employee_id", res.data.employee.id);
+         navigate("/home");
       }
     } catch (error) {
       console.error(error);
