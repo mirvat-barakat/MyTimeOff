@@ -12,6 +12,7 @@ import axios from 'axios';
 const HomePage = () => {
     const tableRef = useRef(null);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+    const [showDeleteDialog, setDeleteDialog] = useState(false);
     const [showForm, setShowForm] = useState(false);
     // const [vacations, setVacations] = useState([]);
     const token = localStorage.getItem("token");
@@ -96,10 +97,14 @@ const HomePage = () => {
     function handleLogoutClick(){
         setShowLogoutDialog(true);
     }
+    function handDeleteClick(){
+      setDeleteDialog(true);
+  }
 
     function handleCancel() {
         setShowLogoutDialog(false);
         setShowForm(false);
+        setDeleteDialog(false);
     }
 
     const handleLogout = () => {
@@ -164,7 +169,7 @@ const HomePage = () => {
                   {new Date(vacation.endDate) >= new Date() && (
                     <>
                     <a className='link' onClick={() => handleUpdateVacation(vacation.id)}>Update</a>
-                    <a className='link' onClick={() => handleDeleteVacation(vacation.id)}>Delete</a>
+                    <a className='link' onClick={handDeleteClick}>Delete</a>
                     </>
                   )}
                 </td>
@@ -182,8 +187,14 @@ const HomePage = () => {
       {showForm && (
                 <div className="add-form-backdrop">
                 <AddVacationForm onCancel={handleCancel}
-                            onConfirm={handleAddVacation}/></div>)}
-      
+                            onConfirm={handleAddVacation}/></div>)}                 
+      {showDeleteDialog && (
+          <div className="add-form-backdrop">
+                      <Confirmation
+                      message="Are you sure you want to delete the vacation?"
+                      onCancel={handleCancel}
+                      onConfirm={handleDeleteVacation}
+                      /></div>)}
       {showLogoutDialog && (
                 <div className="add-form-backdrop">
                             <Confirmation
