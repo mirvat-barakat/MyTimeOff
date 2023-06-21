@@ -87,7 +87,7 @@ namespace backend1.Controllers
 
             if (vacation == null)
             {
-                return NotFound();
+                return NotFound(); 
             }
 
             _dbContext.Vacations.Remove(vacation);
