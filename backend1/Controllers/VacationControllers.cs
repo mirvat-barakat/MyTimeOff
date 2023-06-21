@@ -47,14 +47,12 @@ namespace backend1.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVacation([FromBody] AddVacationRequestModel model)
         {
-            // Find the employee by ID
             var employee = await _dbContext.Employees.FindAsync(model.EmployeeId);
             if (employee == null)
             {
                 return NotFound("Employee not found");
             }
 
-            // Create a new vacation
             var vacation = new Vacation
             {
                 Description = model.Description,
@@ -64,13 +62,10 @@ namespace backend1.Controllers
                 Employee = employee
             };
 
-            // Add vacation to the employee's list of vacations
             employee.Vacations.Add(vacation);
 
-            // Save changes to the database
             await _dbContext.SaveChangesAsync();
 
-            // Return response
             var response = new
             {
                 status = "success",
@@ -80,6 +75,7 @@ namespace backend1.Controllers
             return Ok( response);
         }
 
+        // API to delete a vacation
         [HttpDelete("{id}")]
         public IActionResult DeleteVacation(int id)
         {
@@ -100,6 +96,34 @@ namespace backend1.Controllers
 
             return Ok( response);
         }
+
+        // API to update a vacation
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateVacation(int id, [FromBody] UpdateVacationRequestModel model)
+        {
+            var vacation = await _dbContext.Vacations.FindAsync(id);
+
+            if (vacation == null)
+            {
+                return NotFound("Vacation not found");
+            }
+
+            vacation.Description = model.Description;
+            vacation.StartDate = model.StartDate;
+            vacation.EndDate = model.EndDate;
+            vacation.Duration = model.Duration;
+
+            _dbContext.Vacations.Update(vacation);
+            await _dbContext.SaveChangesAsync();
+
+            var response = new
+            {
+                status = "success",
+                vacation = vacation
+            };
+
+            return Ok(response);
+        }
     }
 }
 
@@ -114,4 +138,15 @@ public class AddVacationRequestModel
     public string Duration { get; set; }
     
     public int EmployeeId { get; set; }
+}
+
+public class UpdateVacationRequestModel
+{
+    public string Description { get; set; }
+    
+    public DateTime StartDate { get; set; }
+    
+    public DateTime EndDate { get; set; }
+    
+    public string Duration { get; set; }
 }
