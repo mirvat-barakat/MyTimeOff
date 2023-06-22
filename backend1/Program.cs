@@ -31,6 +31,15 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
+
+app.Map("/api/vacation", app =>
+{
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+});
 
 app.UseCors(builder =>
 {
@@ -38,10 +47,4 @@ app.UseCors(builder =>
         .AllowAnyMethod()
         .AllowAnyHeader();
 });
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-
 app.Run();
