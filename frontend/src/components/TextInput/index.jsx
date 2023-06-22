@@ -13,8 +13,10 @@ const TextInput = ({ label, value, type, onChange }) => {
         <label >{label}:</label>
         {type === 'date' ? (
         <DatePicker selected={value} onChange={handleDateChange}/>
+        ) : type === 'password' ? (
+          <input type="password" value={value} onChange={onChange} className='input' required />
       ) : (
-        <input type="text" value={value} onChange={onChange} className='input' />
+        <input type="text" value={value} onChange={onChange} className='input' required/>
       )}  
       </div>
     );

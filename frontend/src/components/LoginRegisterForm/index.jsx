@@ -86,6 +86,7 @@ const LoginRegisterForm = () => {
           />
           <TextInput
             label="Password"
+            type="password"
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}
           />
@@ -110,6 +111,7 @@ const LoginRegisterForm = () => {
           />
           <TextInput
             label="Password"
+            type="password"
             value={registerPassword}
             onChange={(e) => setRegisterPassword(e.target.value)}
           />
