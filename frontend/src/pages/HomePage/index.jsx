@@ -110,13 +110,17 @@ const HomePage = () => {
     }
 
     useEffect(() => {
+      $(tableRef.current).DataTable();
+    }, []);
+
+    useEffect(() => {
       let dataTable = null;
     
       if (tableRef.current && vacations.length > 0) {
         if (!$.fn.DataTable.isDataTable(tableRef.current)) {
           dataTable = $(tableRef.current).DataTable({
             paging: true,
-            searching: false,
+            searching: true,
             lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
           });
         }
@@ -146,7 +150,7 @@ const HomePage = () => {
           </thead>
           <tbody>
               {
-              vacations && Array.isArray(vacations.$values) && vacations.$values.length > 0 ? (
+              vacations && Array.isArray(vacations.$values) &&  (
               vacations.$values.map(vacation => (
               <tr key={vacation.id}>
                   <td>{vacation.description}</td>
@@ -164,10 +168,7 @@ const HomePage = () => {
                   </td>
               </tr>
               ))
-              ) : (
-                <tr>
-                  <td colSpan={5}>{Array.isArray(vacations) ? 'No vacations found' : 'Loading...'}</td>
-                </tr>)}
+             )}
           </tbody>
           </table>
           <div className='add-vacation-button'>
