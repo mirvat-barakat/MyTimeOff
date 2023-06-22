@@ -26,6 +26,11 @@ namespace backend1.Controllers
         }
  
         // API to login
+        /*In this API we performs a database query to find the user by email. Usually to calculate time complexity we look for the worst case scenario,
+         here it is that there are N employees in the database, the method needs to iterate through all the employees to find a match for the provided email.
+          For that, the time complexity of login is O(N), where N is the number of employees in the database.*/
+          /*In both API's, the space complexity is O(1) because the amount of additional memory used by the program remains constant,
+           regardless of the number of employees or the size of the input. The memory usage is not proportional to the input size.*/
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestModel model)
         {
@@ -48,6 +53,9 @@ namespace backend1.Controllers
         }
 
         // API to register
+        /*In this API we performs a database query to check if the provided email already exists in the database.
+          Again, in the worst case scenario, where there are N employees in the database, the method needs to iterate through all the employees to check if any of them have the same email.
+          For that, the time complexity of the register is O(N), where N is the number of employees in the database.*/
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestModel model)
         {
