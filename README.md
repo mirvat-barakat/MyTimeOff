@@ -1,5 +1,10 @@
 <img src="./readme/Titles/title1.svg"/>
-Leave-Management-App: A simple CRUD web app that allows employees to request and manage their vacation time efficiently.
+
+### Overview:
+The MyTimeOff project is a simple CRUD web application that focuses on employee vacation management. The application includes features such as signup and login, a home page displaying a list of vacations for the logged-in employee. Employees can add, update, and delete vacations. The frontend implementation uses ReactJs, and I have also utilized .NET 7 as the web framework.
+
+### Learning Process:
+I would like to highlight that this project was my first experience with C#. I started from scratch and invested considerable effort in learning the language and grasping the concepts. Throughout the project, I followed a formal learning approach, combining structured learning resources with practical implementation. I strived to understand the coding style, implement efficient algorithms, and organize the codebase effectively.
 <br><br>
 
 <!-- Implementation -->
