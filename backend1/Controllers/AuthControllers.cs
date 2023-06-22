@@ -24,22 +24,19 @@ namespace backend1.Controllers
             _dbContext = dbContext;
             _configuration = configuration;
         }
-
+ 
+        // API to login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestModel model)
         {
-            // Find the user by email
             var user = await _dbContext.Employees.FirstOrDefaultAsync(e => e.Email == model.Email);
             if (user == null)
             {
-                // Invalid email or password
                 return Unauthorized();
             }
 
-            // Create token
             var token = GenerateJwtToken(user);
 
-            // Return response with token
             var response = new
             {
                 status = "success",
@@ -50,16 +47,15 @@ namespace backend1.Controllers
             return Ok(response);
         }
 
+        // API to register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestModel model)
         {
-            // Check if email already exists
             if (await _dbContext.Employees.AnyAsync(e => e.Email == model.Email))
             {
                 return Conflict("Email already exists");
             }
 
-            // Create new user
             var user = new Employee
             {
                 Name = model.Name,
@@ -67,11 +63,9 @@ namespace backend1.Controllers
                 Password = model.Password
             };
 
-            // Add user to database
             _dbContext.Employees.Add(user);
             await _dbContext.SaveChangesAsync();
 
-            // Return response
             var response = new
             {
                 status = "success",
