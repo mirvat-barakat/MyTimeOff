@@ -13,6 +13,8 @@ const AddVacationForm = (props) => {
   const token = localStorage.getItem("token");
 
   const handleAddVacation = async() => {
+    const user_id= localStorage.getItem("employee_id");
+      const id = user_id.replace(/"/g, "")
 
     const data = {
       "Description": description,
@@ -23,7 +25,7 @@ const AddVacationForm = (props) => {
     const config = {
       method: "Post",
       data:data,
-      url: `http://localhost:5162/api/authentication/addvacation`,
+      url: `http://localhost:5162/api/vacation/${id}`,
       headers: {
         'content-type': 'application/json',
         'Accept': 'application/json',
@@ -86,7 +88,7 @@ const AddVacationForm = (props) => {
           />
           <div className="confirmation-dialog-buttons">
               <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
-              <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={onConfirm}/>
+              <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={handleAddVacation}/>
           </div>
         </div>
         

@@ -17,6 +17,10 @@ const HomePage = () => {
     const [vacations, setVacations] = useState([]);
     const token = localStorage.getItem("token");
     const v_id= localStorage.getItem("v_id");
+    const [description, setDescription] = useState('');
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [duration, setDuration] = useState('');
     const navigate = useNavigate();
 
     const handleGetEmployeeVacations = async() => {
@@ -37,7 +41,7 @@ const HomePage = () => {
         const res = await axios(config);
         if (res.data.status == "success") {
           setVacations(res.data.vacations);
-          
+          console.log(res.data.vacations);
         }
       } catch (error) {
         return error.response;
@@ -69,8 +73,40 @@ const HomePage = () => {
       navigate("/");
   }
 
-  function handleAddVacation(){
+  function handleAddVacationClick() {
     setShowForm(true);
+  }
+  const handleAddVacation = async() => {
+    const user_id= localStorage.getItem("employee_id");
+      const id = user_id.replace(/"/g, "")
+
+    const data = {
+      "Description": description,
+      "StartDate": startDate,
+      "EndDate": endDate,
+      "Duration": duration,
+    }
+    const config = {
+      method: "Post",
+      data:data,
+      url: `http://localhost:5162/api/vacation/${id}`,
+      headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`,
+
+      },
+    };
+    try {
+      const res = await axios(config);
+      if (res.data.status == "success") {
+        console.log("success");
+        setShowForm(false);
+      }
+    } catch (error) {
+      return error.response;
+    }
+
   }
   function handleUpdateVacation(vacationId) {
     // Handle update operation for the given vacationId
@@ -132,7 +168,9 @@ const HomePage = () => {
             </tr>
         </thead>
         <tbody>
-            {vacations.map(vacation => (
+            {
+            vacations && Array.isArray(vacations.$values) && vacations.$values.length > 0 ? (
+            vacations.$values.map(vacation => (
             <tr key={vacation.id}>
                 <td>{vacation.description}</td>
                 <td>{vacation.startDate}</td>
@@ -148,11 +186,15 @@ const HomePage = () => {
                   )}
                 </td>
             </tr>
-            ))}
+            ))
+            ) : (
+              <tr>
+                <td colSpan={5}>{Array.isArray(vacations) ? 'No vacations found' : 'Loading...'}</td>
+              </tr>)}
         </tbody>
         </table>
         <div className='add-vacation-button'>
-          <Button type="submit" label="Add a Vacation" onClick={handleAddVacation} />
+          <Button type="submit" label="Add a Vacation" onClick={handleAddVacationClick} />
         </div>
       </div>
       <div className='logout'>
