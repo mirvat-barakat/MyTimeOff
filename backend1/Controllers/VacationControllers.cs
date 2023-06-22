@@ -25,6 +25,10 @@ namespace backend1.Controllers
         }
 
         // API to get all vacations for an employee
+        /*
+        Time Complexity: O(N), where N is the number of vacations associated with the employee. It retrieve employee's vacations so if an employee has many vacations, it will take more time to get them.
+        Space Complexity: O(N), where N is the number of vacations associated with the employee. The vacations are stored in a list so The amount of memory used to store the vacations increases with the number of vacations associated with the employee.
+        */
         [HttpGet("employee/{employeeId}")]
         public async Task<IActionResult> GetVacationsForEmployee(int employeeId)
         {
@@ -44,6 +48,10 @@ namespace backend1.Controllers
         }
 
         // API to add a new vacation
+        /*
+        Time Complexity: O(1). Since it performs a constant number of operations to add a new vacation to the database.
+        Space Complexity: O(1). Since the additional memory used by the method is constant, as it does not depend on the size of the input or database.
+        */
         [HttpPost("{employeeId}")]
         public async Task<IActionResult> AddVacation(int employeeId, [FromBody] AddVacationRequestModel model)
         {
@@ -76,6 +84,10 @@ namespace backend1.Controllers
         }
 
         // API to delete a vacation
+        /*
+        Time Complexity: O(1). Since it performs a constant number of operations to delete a vacation from the database.
+        Space Complexity: O(1). Since the additional memory used by the method is constant, as it does not depend on the size of the input or database.
+        */
         [HttpDelete("{id}")]
         public IActionResult DeleteVacation(int id)
         {
@@ -98,6 +110,10 @@ namespace backend1.Controllers
         }
 
         // API to update a vacation
+        /*
+        Time Complexity: O(1). Since it performs a constant number of operations to update a vacation in the database.
+        Space Complexity: O(1). Since the additional memory used by the method is constant, as it does not depend on the size of the input or database.
+        */
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVacation(int id, [FromBody] UpdateVacationRequestModel model)
         {
