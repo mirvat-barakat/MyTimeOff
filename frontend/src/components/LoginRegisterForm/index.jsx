@@ -6,11 +6,10 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const LoginRegisterForm = () => {
+  
   const [isLogin, setIsLogin] = useState(true);
-
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-
   const [registerName, setRegisterName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');

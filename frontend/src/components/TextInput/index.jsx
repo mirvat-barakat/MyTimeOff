@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './styles.css';
 
 const TextInput = ({ label, value, type, onChange }) => {
+  
   const handleDateChange = (date) => {
     onChange(date);
   };
@@ -14,8 +15,7 @@ const TextInput = ({ label, value, type, onChange }) => {
         <DatePicker selected={value} onChange={handleDateChange}/>
       ) : (
         <input type="text" value={value} onChange={onChange} className='input' />
-      )}
-        
+      )}  
       </div>
     );
   };

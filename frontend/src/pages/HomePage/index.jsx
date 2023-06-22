@@ -17,6 +17,7 @@ const HomePage = () => {
     const [vacations, setVacations] = useState([]);
     const token = localStorage.getItem("token");
     const v_id= localStorage.getItem("v_id");
+    const [isUpdate, setIsUpdate] = useState(false);
     const [description, setDescription] = useState('');
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -65,6 +66,11 @@ const HomePage = () => {
         setShowLogoutDialog(false);
         setShowForm(false);
         setDeleteDialog(false);
+        setIsUpdate(false);
+        setDescription( '');
+        setStartDate(null);
+        setEndDate(null);
+        setDuration('');
     }
 
     const handleLogout = () => {
@@ -108,8 +114,13 @@ const HomePage = () => {
     }
 
   }
-  function handleUpdateVacation(vacationId) {
-    // Handle update operation for the given vacationId
+  function handleUpdateVacation(vacation) {
+    setDescription(vacation.description);
+    setStartDate(new Date(vacation.startDate));
+    setEndDate(new Date(vacation.endDate));
+    setDuration(vacation.duration);
+    setIsUpdate(true);
+    setShowForm(true);
   }
 
   const handleDeleteVacation = async() => {
@@ -179,11 +190,10 @@ const HomePage = () => {
                 <td>
                   {new Date(vacation.endDate) >= new Date() && (
                     <>
-                    <a className='link' onClick={() => handleUpdateVacation(vacation.id)}>Update</a>
+                    <a className='link' onClick={() => handleUpdateVacation(vacation)}>Update</a>
                     <a className='link' onClick={() => { localStorage.setItem('v_id', JSON.stringify(vacation.id));
                                                           handDeleteClick() }}>Delete</a>
-                    </>
-                  )}
+                    </>)}
                 </td>
             </tr>
             ))
@@ -202,8 +212,11 @@ const HomePage = () => {
       </div>
       {showForm && (
                 <div className="add-form-backdrop">
-                <AddVacationForm onCancel={handleCancel}
-                            onConfirm={handleAddVacation}/></div>)}                 
+                <AddVacationForm      isUpdate={isUpdate} onCancel={handleCancel} onConfirm={handleAddVacation}
+                                        initialDescription={description}
+                                        initialStartDate={startDate}
+                                        initialEndDate={endDate}
+                                        initialDuration={duration}/></div>)}            
       {showDeleteDialog && (
           <div className="add-form-backdrop">
                       <Confirmation
@@ -220,8 +233,6 @@ const HomePage = () => {
                             /></div>)}
   </div>
     </>
-
-
   );
 };
 

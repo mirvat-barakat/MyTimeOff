@@ -5,11 +5,20 @@ import axios from 'axios';
 import './styles.css';
 
 const AddVacationForm = (props) => {
-  const [description, setDescription] = useState('');
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [duration, setDuration] = useState('');
-  const {onCancel, onConfirm } = props;
+  const {
+    onCancel,
+    onConfirm,
+    isUpdate,
+    initialDescription,
+    initialStartDate,
+    initialEndDate,
+    initialDuration,
+  } = props;
+
+  const [description, setDescription] = useState(initialDescription || '');
+  const [startDate, setStartDate] = useState(initialStartDate || null);
+  const [endDate, setEndDate] = useState(initialEndDate || null);
+  const [duration, setDuration] = useState(initialDuration || '');
   const token = localStorage.getItem("token");
 
   const handleAddVacation = async() => {
@@ -61,7 +70,7 @@ const AddVacationForm = (props) => {
   return (
     <div>
       <form className="vacation-form">
-        <h2>Add Vacation</h2>
+        <h2>{isUpdate ? 'Update Vacation' : 'Add Vacation'}</h2>
           <div className='info'>
           <TextInput
             label="Description"
@@ -88,7 +97,7 @@ const AddVacationForm = (props) => {
           />
           <div className="confirmation-dialog-buttons">
               <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
-              <Button type="submit" label=" Add" className="confirmation-dialog-button  confirm" onClick={handleAddVacation}/>
+              <Button type="submit" label={isUpdate ? 'Update' : 'Add'} className="confirmation-dialog-button  confirm" onClick={handleAddVacation}/>
           </div>
         </div>
         
