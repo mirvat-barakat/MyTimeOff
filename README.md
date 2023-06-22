@@ -5,15 +5,21 @@ Leave-Management-App: A simple CRUD web app that allows employees to request and
 <!-- Implementation -->
 <img src="./readme/Titles/title4.svg"/>
 
-### Employees Screens (Web)
+### My Time Off Screens
 
-| Get Started screen                                       | Landing Screen                                         |
+| Login                                      | Register                                |
 | -------------------------------------------------------- | ------------------------------------------------------ |
-| ![Landing](./readme/Implementation/Getstarted.jpg)       | ![fsdaf](./readme/Implementation/LandingPage.jpg)      |
-| Patient Login Screen                                     | Patient Register screen                                |
-| ![Landing](./readme/Implementation/Patientslogin.jpg)    | ![fsdaf](./readme/Implementation/Patientsregister.jpg) |
-| Patients Add Data Screen                                 | Success Message Screen                           |
-| ![Landing](./readme/Implementation/Patientsdataform.jpg) | ![fsdaf](./readme/Implementation/Formsuccess.jpg)      |
+| ![Landing](./readme/Implementation/loginvacation.jpg)    | ![fsdaf](./readme/Implementation/registervacation.jpg) |
+| Add Vacation                                | Update Vacation                          |
+| ![Landing](./readme/Implementation/addvacation.jpg) | ![fsdaf](./readme/Implementation/update.jpg)      |
+| Delete Vacation                                      | Logout                                          |
+| ![Landing](./readme/Implementation/deletevacation.jpg)       | ![fsdaf](./readme/Implementation/logout.jpg)      |
+  
+### My Time Off Demo
+
+| My Time Off Demo           |
+| -------------------------------------------------------- |
+| ![Landing](./readme/Implementation/mytimeoff.gif) |   
 
 <br><br>
 
