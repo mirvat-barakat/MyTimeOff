@@ -37,7 +37,21 @@ git clone https://https://github.com/mirvat-barakat/MyTimeOff
 ```
 
 ### MyTimeOff Backend
+In `backend1` :
 
+In The Terminal Run:
+
+```sh
+  dotnet restore
+```
+
+```sh
+  dotnet build
+```
+
+```sh
+  dotnet run
+```
 
 
 ### MyTimeOff frontend
