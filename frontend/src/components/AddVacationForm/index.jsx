@@ -7,23 +7,22 @@ import './styles.css';
 const AddVacationForm = (props) => {
   const {
     onCancel,
-    onConfirm,
     isUpdate,
     initialDescription,
     initialStartDate,
     initialEndDate,
     initialDuration,
   } = props;
-
   const [description, setDescription] = useState(initialDescription || '');
   const [startDate, setStartDate] = useState(initialStartDate || null);
   const [endDate, setEndDate] = useState(initialEndDate || null);
   const [duration, setDuration] = useState(initialDuration || '');
   const token = localStorage.getItem("token");
+  const user_id= localStorage.getItem("employee_id");
+  const id = user_id.replace(/"/g, "")
+  const v_id= localStorage.getItem("v_id");
 
   const handleAddVacation = async() => {
-    const user_id= localStorage.getItem("employee_id");
-      const id = user_id.replace(/"/g, "")
 
     const data = {
       "Description": description,
@@ -31,8 +30,7 @@ const AddVacationForm = (props) => {
       "EndDate": endDate,
       "Duration": duration,
     }
-    console.log(data);
-    console.log(id);
+
     const config = {
       method: "Post",
       data:data,
@@ -40,7 +38,7 @@ const AddVacationForm = (props) => {
       headers: {
         'content-type': 'application/json',
         'Accept': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
 
       },
     };
@@ -48,18 +46,14 @@ const AddVacationForm = (props) => {
       const res = await axios(config);
       if (res.data.status == "success") {
         console.log("success");
-        // setShowForm(false);
       }
     } catch (error) {
       return error.response;
     }
-
   }
 
   const handleUpdateVacation = async() => {
-    const user_id= localStorage.getItem("employee_id");
-      const id = user_id.replace(/"/g, "")
-      const v_id= localStorage.getItem("v_id");
+
     const data = {
       "description": description,
       "startDate": startDate,
@@ -75,19 +69,17 @@ const AddVacationForm = (props) => {
       headers: {
         'content-type': 'application/json',
         'Accept': 'application/json',
-
+        'Authorization': `Bearer ${token}`,
       },
     };
     try {
       const res = await axios(config);
       if (res.data.status == "success") {
         console.log("success");
-        // setShowForm(false);
       }
     } catch (error) {
       return error.response;
     }
-
   }
 
 

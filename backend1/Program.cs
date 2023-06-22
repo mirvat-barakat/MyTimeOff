@@ -33,18 +33,18 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseAuthentication();
 
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
+
 app.Map("/api/vacation", app =>
 {
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllers();
     });
-});
-
-app.UseCors(builder =>
-{
-    builder.AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
 });
 app.Run();

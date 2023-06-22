@@ -72,7 +72,7 @@ namespace backend1.Controllers
 
             _dbContext.Vacations.Add(vacation);
 
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
 
             var response = new
             {

@@ -34,8 +34,7 @@ const HomePage = () => {
         headers: {
           'content-type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'bearer ' + token
-
+          'Authorization': `Bearer ${token}`,
         },
       };
       try {
@@ -47,9 +46,7 @@ const HomePage = () => {
       } catch (error) {
         return error.response;
       }
-  
     }
-
     useEffect(() => {
       handleGetEmployeeVacations();
     }, []);
@@ -60,7 +57,7 @@ const HomePage = () => {
     }
     function handDeleteClick(){
       setDeleteDialog(true);
-  }
+    }
 
     function handleCancel() {
         setShowLogoutDialog(false);
@@ -73,205 +70,137 @@ const HomePage = () => {
         setDuration('');
     }
 
-    const handleLogout = () => {
-      
+    const handleLogout = () => { 
       localStorage.clear();
       navigate("/");
-  }
-
-  function handleAddVacationClick() {
-    setShowForm(true);
-  }
-  const handleAddVacation = async() => {
-    const user_id= localStorage.getItem("employee_id");
-      const id = user_id.replace(/"/g, "")
-
-    const data = {
-      "Description": description,
-      "StartDate": startDate,
-      "EndDate": endDate,
-      "Duration": duration,
-    }
-    console.log(data);
-    console.log(id);
-    const config = {
-      method: "Post",
-      data:data,
-      url: `http://localhost:5162/api/vacation/${id}`,
-      headers: {
-        'content-type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${token}`,
-
-      },
-    };
-    try {
-      const res = await axios(config);
-      if (res.data.status == "success") {
-        console.log("success");
-        setShowForm(false);
-      }
-    } catch (error) {
-      return error.response;
     }
 
-  }
-  function handleUpdateVacationClick(vacation) {
-    setDescription(vacation.description);
-    setStartDate(new Date(vacation.startDate));
-    setEndDate(new Date(vacation.endDate));
-    setDuration(vacation.duration);
-    setIsUpdate(true);
-    setShowForm(true);
-  }
-
-  const handleDeleteVacation = async() => {
-
-    const config = {
-      method: "Delete",
-      url: `http://localhost:5162/api/vacation/${v_id}`,
-      headers: {
-        'content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    };
-    try {
-      const res = await axios(config);
-      if (res.data.status == "success") {
-        setDeleteDialog(false);
-      }
-    } catch (error) {
-      console.error(error);
+    function handleAddVacationClick() {
+      setShowForm(true);
     }
-  }
 
-  useEffect(() => {
-    let dataTable = null;
-  
-    if (tableRef.current && vacations.length > 0) {
-      if (!$.fn.DataTable.isDataTable(tableRef.current)) {
-        dataTable = $(tableRef.current).DataTable({
-          paging: true,
-          searching: false,
-          lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
-        });
+    function handleUpdateVacationClick(vacation) {
+      setDescription(vacation.description);
+      setStartDate(new Date(vacation.startDate));
+      setEndDate(new Date(vacation.endDate));
+      setDuration(vacation.duration);
+      setIsUpdate(true);
+      setShowForm(true);
+    }
+
+    const handleDeleteVacation = async() => {
+
+      const config = {
+        method: "Delete",
+        url: `http://localhost:5162/api/vacation/${v_id}`,
+        headers: {
+          'content-Type': 'application/json',
+          Accept: 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      };
+      try {
+        const res = await axios(config);
+        if (res.data.status == "success") {
+          setDeleteDialog(false);
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
-  
-    return () => {
-      if (dataTable !== null) {
-        dataTable.destroy();
-      }
-    };
-  }, [vacations]);
 
-  const handleUpdateVacation = async() => {
-    const user_id= localStorage.getItem("employee_id");
-      const id = user_id.replace(/"/g, "")
-
-    const data = {
-      "description": description,
-      "startDate": startDate,
-      "endDate": endDate,
-      "duration": duration,
-    }
-    console.log(data);
-    console.log(id);
-    const config = {
-      method: "Put",
-      data:data,
-      url: `http://localhost:5162/api/vacation/${v_id}`,
-      headers: {
-        'content-type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${token}`,
-
-      },
-    };
-    try {
-      const res = await axios(config);
-      if (res.data.status == "success") {
-        console.log("success");
-        setShowForm(false);
-      }
-    } catch (error) {
-      return error.response;
-    }
-
-  }
+    useEffect(() => {
+      let dataTable = null;
     
-  return (
-    <>
-        <div className='main'>
-        <div className='table'>
-        <h2>My Vacations</h2>
-        <table ref={tableRef} className="table table-striped table-bordered">
-        <thead>
-            <tr>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Duration</th>
-            <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {
-            vacations && Array.isArray(vacations.$values) && vacations.$values.length > 0 ? (
-            vacations.$values.map(vacation => (
-            <tr key={vacation.id}>
-                <td>{vacation.description}</td>
-                <td>{vacation.startDate}</td>
-                <td>{vacation.endDate}</td>
-                <td>{vacation.duration}</td>
-                <td>
-                  {new Date(vacation.endDate) >= new Date() && (
-                    <>
-                    <a className='link' onClick={() => {localStorage.setItem('v_id', JSON.stringify(vacation.id));
-                                                          handleUpdateVacationClick(vacation)}}>Update</a>
-                    <a className='link' onClick={() => { localStorage.setItem('v_id', JSON.stringify(vacation.id));
-                                                          handDeleteClick() }}>Delete</a>
-                    </>)}
-                </td>
-            </tr>
-            ))
-            ) : (
+      if (tableRef.current && vacations.length > 0) {
+        if (!$.fn.DataTable.isDataTable(tableRef.current)) {
+          dataTable = $(tableRef.current).DataTable({
+            paging: true,
+            searching: false,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+          });
+        }
+      }
+    
+      return () => {
+        if (dataTable !== null) {
+          dataTable.destroy();
+        }
+      };
+    }, [vacations]);
+      
+    return (
+      <>
+          <div className='main'>
+          <div className='table'>
+          <h2>My Vacations</h2>
+          <table ref={tableRef} className="table table-striped table-bordered">
+          <thead>
               <tr>
-                <td colSpan={5}>{Array.isArray(vacations) ? 'No vacations found' : 'Loading...'}</td>
-              </tr>)}
-        </tbody>
-        </table>
-        <div className='add-vacation-button'>
-          <Button type="submit" label="Add a Vacation" onClick={handleAddVacationClick} />
+              <th>Description</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Duration</th>
+              <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              {
+              vacations && Array.isArray(vacations.$values) && vacations.$values.length > 0 ? (
+              vacations.$values.map(vacation => (
+              <tr key={vacation.id}>
+                  <td>{vacation.description}</td>
+                  <td>{vacation.startDate}</td>
+                  <td>{vacation.endDate}</td>
+                  <td>{vacation.duration}</td>
+                  <td>
+                    {new Date(vacation.endDate) >= new Date() && (
+                      <>
+                      <a className='link' onClick={() => {localStorage.setItem('v_id', JSON.stringify(vacation.id));
+                                                            handleUpdateVacationClick(vacation)}}>Update</a>
+                      <a className='link' onClick={() => { localStorage.setItem('v_id', JSON.stringify(vacation.id));
+                                                            handDeleteClick() }}>Delete</a>
+                      </>)}
+                  </td>
+              </tr>
+              ))
+              ) : (
+                <tr>
+                  <td colSpan={5}>{Array.isArray(vacations) ? 'No vacations found' : 'Loading...'}</td>
+                </tr>)}
+          </tbody>
+          </table>
+          <div className='add-vacation-button'>
+            <Button type="submit" label="Add a Vacation" onClick={handleAddVacationClick} />
+          </div>
         </div>
-      </div>
-      <div className='logout'>
-        <Button type="submit" label="Logout" onClick={handleLogoutClick} />
-      </div>
-      {showForm && (
-                <div className="add-form-backdrop">
-                <AddVacationForm      isUpdate={isUpdate} onCancel={handleCancel} onConfirm={isUpdate ? handleUpdateVacation : handleAddVacation}
-                                        initialDescription={description}
-                                        initialStartDate={startDate}
-                                        initialEndDate={endDate}
-                                        initialDuration={duration}/></div>)}            
-      {showDeleteDialog && (
-          <div className="add-form-backdrop">
-                      <Confirmation
-                      message="Are you sure you want to delete the vacation?"
-                      onCancel={handleCancel}
-                      onConfirm={handleDeleteVacation}
-                      /></div>)}
-      {showLogoutDialog && (
-                <div className="add-form-backdrop">
-                            <Confirmation
-                            message="Are you sure you want to logout?"
-                            onCancel={handleCancel}
-                            onConfirm={handleLogout}
-                            /></div>)}
-  </div>
-    </>
-  );
-};
+        <div className='logout'>
+          <Button type="submit" label="Logout" onClick={handleLogoutClick} />
+        </div>
+        {showForm && (
+                  <div className="add-form-backdrop">
+                  <AddVacationForm      isUpdate={isUpdate} onCancel={handleCancel} 
+                                          initialDescription={description}
+                                          initialStartDate={startDate}
+                                          initialEndDate={endDate}
+                                          initialDuration={duration}/></div>)}            
+        {showDeleteDialog && (
+            <div className="add-form-backdrop">
+                        <Confirmation
+                        message="Are you sure you want to delete the vacation?"
+                        onCancel={handleCancel}
+                        onConfirm={handleDeleteVacation}
+                        /></div>)}
+        {showLogoutDialog && (
+                  <div className="add-form-backdrop">
+                              <Confirmation
+                              message="Are you sure you want to logout?"
+                              onCancel={handleCancel}
+                              onConfirm={handleLogout}
+                              /></div>)}
+    </div>
+      </>
+    );
+  };
 
-export default HomePage;
+  export default HomePage;
