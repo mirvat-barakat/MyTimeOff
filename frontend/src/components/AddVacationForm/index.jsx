@@ -31,6 +31,8 @@ const AddVacationForm = (props) => {
       "EndDate": endDate,
       "Duration": duration,
     }
+    console.log(data);
+    console.log(id);
     const config = {
       method: "Post",
       data:data,
@@ -46,12 +48,48 @@ const AddVacationForm = (props) => {
       const res = await axios(config);
       if (res.data.status == "success") {
         console.log("success");
+        // setShowForm(false);
       }
     } catch (error) {
       return error.response;
     }
 
   }
+
+  const handleUpdateVacation = async() => {
+    const user_id= localStorage.getItem("employee_id");
+      const id = user_id.replace(/"/g, "")
+      const v_id= localStorage.getItem("v_id");
+    const data = {
+      "description": description,
+      "startDate": startDate,
+      "endDate": endDate,
+      "duration": duration,
+    }
+    console.log(data);
+    console.log(id);
+    const config = {
+      method: "Put",
+      data:data,
+      url: `http://localhost:5162/api/vacation/${v_id}`,
+      headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json',
+
+      },
+    };
+    try {
+      const res = await axios(config);
+      if (res.data.status == "success") {
+        console.log("success");
+        // setShowForm(false);
+      }
+    } catch (error) {
+      return error.response;
+    }
+
+  }
+
 
   const calculateDuration = () => {
     if (startDate && endDate) {
@@ -97,7 +135,7 @@ const AddVacationForm = (props) => {
           />
           <div className="confirmation-dialog-buttons">
               <Button type="submit" label="Cancel" className="confirmation-dialog-button  cancel" onClick={onCancel}/>
-              <Button type="submit" label={isUpdate ? 'Update' : 'Add'} className="confirmation-dialog-button  confirm" onClick={handleAddVacation}/>
+              <Button type="submit" label={isUpdate ? 'Update' : 'Add'} className="confirmation-dialog-button  confirm" onClick={isUpdate ? handleUpdateVacation : handleAddVacation}/>
           </div>
         </div>
         

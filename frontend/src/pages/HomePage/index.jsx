@@ -42,7 +42,7 @@ const HomePage = () => {
         const res = await axios(config);
         if (res.data.status == "success") {
           setVacations(res.data.vacations);
-          console.log(res.data.vacations);
+
         }
       } catch (error) {
         return error.response;
@@ -92,6 +92,8 @@ const HomePage = () => {
       "EndDate": endDate,
       "Duration": duration,
     }
+    console.log(data);
+    console.log(id);
     const config = {
       method: "Post",
       data:data,
@@ -114,7 +116,7 @@ const HomePage = () => {
     }
 
   }
-  function handleUpdateVacation(vacation) {
+  function handleUpdateVacationClick(vacation) {
     setDescription(vacation.description);
     setStartDate(new Date(vacation.startDate));
     setEndDate(new Date(vacation.endDate));
@@ -162,6 +164,41 @@ const HomePage = () => {
       }
     };
   }, [vacations]);
+
+  const handleUpdateVacation = async() => {
+    const user_id= localStorage.getItem("employee_id");
+      const id = user_id.replace(/"/g, "")
+
+    const data = {
+      "description": description,
+      "startDate": startDate,
+      "endDate": endDate,
+      "duration": duration,
+    }
+    console.log(data);
+    console.log(id);
+    const config = {
+      method: "Put",
+      data:data,
+      url: `http://localhost:5162/api/vacation/${v_id}`,
+      headers: {
+        'content-type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`,
+
+      },
+    };
+    try {
+      const res = await axios(config);
+      if (res.data.status == "success") {
+        console.log("success");
+        setShowForm(false);
+      }
+    } catch (error) {
+      return error.response;
+    }
+
+  }
     
   return (
     <>
@@ -190,7 +227,8 @@ const HomePage = () => {
                 <td>
                   {new Date(vacation.endDate) >= new Date() && (
                     <>
-                    <a className='link' onClick={() => handleUpdateVacation(vacation)}>Update</a>
+                    <a className='link' onClick={() => {localStorage.setItem('v_id', JSON.stringify(vacation.id));
+                                                          handleUpdateVacationClick(vacation)}}>Update</a>
                     <a className='link' onClick={() => { localStorage.setItem('v_id', JSON.stringify(vacation.id));
                                                           handDeleteClick() }}>Delete</a>
                     </>)}
@@ -212,7 +250,7 @@ const HomePage = () => {
       </div>
       {showForm && (
                 <div className="add-form-backdrop">
-                <AddVacationForm      isUpdate={isUpdate} onCancel={handleCancel} onConfirm={handleAddVacation}
+                <AddVacationForm      isUpdate={isUpdate} onCancel={handleCancel} onConfirm={isUpdate ? handleUpdateVacation : handleAddVacation}
                                         initialDescription={description}
                                         initialStartDate={startDate}
                                         initialEndDate={endDate}
